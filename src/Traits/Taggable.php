@@ -120,9 +120,6 @@ trait Taggable
         }
     }
 
-    /**
-     *
-     */
     protected function removeAllTags()
     {
         $this->tags()->sync([]);

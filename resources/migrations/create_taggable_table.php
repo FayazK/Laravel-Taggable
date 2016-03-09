@@ -11,9 +11,6 @@ use Illuminate\Database\Schema\Blueprint;
  */
 class CreateTaggableTable extends Migration
 {
-    /**
-     *
-     */
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
@@ -30,9 +27,6 @@ class CreateTaggableTable extends Migration
         });
     }
 
-    /**
-     *
-     */
     public function down()
     {
         Schema::dropIfExists('tags');
