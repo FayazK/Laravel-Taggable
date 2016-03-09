@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Laravel Taggable.
+ *
+ * (c) DraperStudio <hello@draperstudio.tech>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DraperStudio\Taggable\Traits;
 
 use DraperStudio\Taggable\Exceptions\InvalidTagException;
@@ -10,13 +19,26 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Stringy\StaticStringy as S;
 
+/**
+ * Class Taggable.
+ *
+ * @author DraperStudio <hello@draperstudio.tech>
+ */
 trait Taggable
 {
+    /**
+     * @return mixed
+     */
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
     }
 
+    /**
+     * @param $tags
+     *
+     * @return $this
+     */
     public function tag($tags)
     {
         $tags = Util::buildTagArray($tags);
@@ -28,6 +50,11 @@ trait Taggable
         return $this;
     }
 
+    /**
+     * @param $tags
+     *
+     * @return $this
+     */
     public function untag($tags)
     {
         $tags = Util::buildTagArray($tags);
@@ -39,11 +66,19 @@ trait Taggable
         return $this;
     }
 
+    /**
+     * @param $tags
+     *
+     * @return $this
+     */
     public function retag($tags)
     {
         return $this->detag()->tag($tags);
     }
 
+    /**
+     * @return $this
+     */
     public function detag()
     {
         $this->removeAllTags();
@@ -51,6 +86,9 @@ trait Taggable
         return $this;
     }
 
+    /**
+     * @param $string
+     */
     protected function addOneTag($string)
     {
         if ($this->onlyUseExistingTags) {
@@ -72,6 +110,9 @@ trait Taggable
         }
     }
 
+    /**
+     * @param $string
+     */
     protected function removeOneTag($string)
     {
         if ($tag = Tag::findByName($string)) {
@@ -79,31 +120,52 @@ trait Taggable
         }
     }
 
+    /**
+     *
+     */
     protected function removeAllTags()
     {
         $this->tags()->sync([]);
     }
 
+    /**
+     * @return string
+     */
     public function getTagListAttribute()
     {
         return Util::makeTagList($this, 'name');
     }
 
+    /**
+     * @return string
+     */
     public function getTagListNormalizedAttribute()
     {
         return Util::makeTagList($this, 'slug');
     }
 
+    /**
+     * @return mixed
+     */
     public function getTagArrayAttribute()
     {
         return Util::makeTagArray($this, 'name');
     }
 
+    /**
+     * @return mixed
+     */
     public function getTagArrayNormalizedAttribute()
     {
         return Util::makeTagArray($this, 'slug');
     }
 
+    /**
+     * @param Builder $query
+     * @param $tags
+     *
+     * @return Builder|static
+     */
     public function scopeWithAllTags(Builder $query, $tags)
     {
         $tags = Util::buildTagArray($tags);
@@ -114,6 +176,12 @@ trait Taggable
         }, '=', count($slug));
     }
 
+    /**
+     * @param Builder $query
+     * @param array   $tags
+     *
+     * @return Builder|static
+     */
     public function scopeWithAnyTags(Builder $query, $tags = [])
     {
         $tags = Util::buildTagArray($tags);
@@ -129,16 +197,27 @@ trait Taggable
         });
     }
 
+    /**
+     * @return mixed
+     */
     public static function tagsArray()
     {
         return static::getAllTags(get_called_class());
     }
 
+    /**
+     * @return string
+     */
     public static function tagsList()
     {
         return Util::joinArray(static::getAllTags(get_called_class()));
     }
 
+    /**
+     * @param $className
+     *
+     * @return mixed
+     */
     public static function getAllTags($className)
     {
         return DB::table('taggables')->distinct()

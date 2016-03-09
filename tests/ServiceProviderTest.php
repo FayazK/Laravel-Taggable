@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace DraperStudio\Taggable\Exceptions;
+namespace DraperStudio\Tests\Taggable;
+
+use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
 
 /**
- * Class InvalidTagException.
+ * This is the service provider test class.
  *
  * @author DraperStudio <hello@draperstudio.tech>
  */
-class InvalidTagException extends \InvalidArgumentException
+class ServiceProviderTest extends AbstractTestCase
 {
-    //
+    use ServiceProviderTrait;
 }

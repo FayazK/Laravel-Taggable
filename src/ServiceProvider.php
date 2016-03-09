@@ -1,18 +1,50 @@
 <?php
 
+/*
+ * This file is part of Laravel Taggable.
+ *
+ * (c) DraperStudio <hello@draperstudio.tech>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DraperStudio\Taggable;
 
-use DraperStudio\ServiceProvider\ServiceProvider as BaseProvider;
-
-class ServiceProvider extends BaseProvider
+/**
+ * Class ServiceProvider.
+ *
+ * @author DraperStudio <hello@draperstudio.tech>
+ */
+class ServiceProvider extends \DraperStudio\ServiceProvider\ServiceProvider
 {
-    protected $packageName = 'taggable';
+    /**
+     * Bootstrap the application services.
+     */
+    public function boot()
+    {
+        $this->publishMigrations();
 
+        $this->publishConfig();
+    }
+
+    /**
+     * Register the application services.
+     */
     public function register()
     {
-        $this->setup(__DIR__)
-             ->publishMigrations()
-             ->publishConfig()
-             ->mergeConfig('taggable');
+        parent::register();
+
+        $this->mergeConfig();
+    }
+
+    /**
+     * Get the default package name.
+     *
+     * @return string
+     */
+    public function getPackageName()
+    {
+        return 'taggable';
     }
 }

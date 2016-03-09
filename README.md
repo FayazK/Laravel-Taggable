@@ -1,23 +1,23 @@
 # Laravel Taggable
 
-Based on [eloquent-taggable](https://github.com/cviebrock/eloquent-taggable) by [cviebrock](https://github.com/cviebrock).
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
-## New Features
+## Install
 
-- Only allow the use already existing tags **(Can be set per model)**
-- Symfony Code-Style **(PHP-CS-Fixer)**
+Via Composer
 
-## Installation
-
-First, pull in the package through Composer.
-
-```js
-composer require draperstudio/laravel-taggable:1.0.*@dev
+``` bash
+$ composer require draperstudio/laravel-taggable
 ```
 
 And then, if using Laravel 5, include the service provider within `app/config/app.php`.
 
-```php
+``` php
 'providers' => [
     // ... Illuminate Providers
     // ... App Providers
@@ -25,7 +25,7 @@ And then, if using Laravel 5, include the service provider within `app/config/ap
 ];
 ```
 
-## Migration
+### Migration
 
 To get started, you'll need to publish all vendor assets:
 
@@ -39,7 +39,7 @@ And then run the migrations to setup the database table.
 $ php artisan migrate
 ```
 
-## Configuration
+### Configuration
 
 Taggable supports optional configuration.
 
@@ -55,8 +55,17 @@ This will create a `config/taggable.php` file in your app that you can modify to
 
 ##### Setup a Model
 
-```php
+``` php
 <?php
+
+/*
+ * This file is part of Laravel Taggable.
+ *
+ * (c) DraperStudio <hello@draperstudio.tech>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App;
 
@@ -74,35 +83,67 @@ class Post extends Model implements Taggable
 
 ##### Add a tag to a model
 
-```php
+``` php
 $model->tag('Apple,Banana,Cherry');
 $model->tag(['Apple', 'Banana', 'Cherry']);
 ```
 
 ##### Remove specific tags
 
-```php
+``` php
 $model->untag('Banana');
 ```
 
 ##### Remove all tags
 
-```php
+``` php
 $model->detag();
 ```
 
 ##### Remove all assigned tags and assign the new ones
 
-```php
+``` php
 $model->retag('Etrog,Fig,Grape');
 ```
 
-## To-Do
+## Change log
 
-- [ ] Simplify code more
-- [ ] Remove Util class
-- [ ] Three-way tagging (e.g. per-user tagging of models)
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Testing
+
+``` bash
+$ composer test
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+
+## Security
+
+If you discover any security related issues, please email hello@draperstudio.tech instead of using the issue tracker.
+
+## Credits
+
+- [DraperStudio][link-author]
+- [All Contributors][link-contributors]
 
 ## License
 
-Laravel Taggable is licensed under [The MIT License (MIT)](LICENSE).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/DraperStudio/laravel-taggable.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/DraperStudio/Laravel-Taggable/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/DraperStudio/laravel-taggable.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/DraperStudio/laravel-taggable.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/DraperStudio/laravel-taggable.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/DraperStudio/laravel-taggable
+[link-travis]: https://travis-ci.org/DraperStudio/Laravel-Taggable
+[link-scrutinizer]: https://scrutinizer-ci.com/g/DraperStudio/laravel-taggable/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/DraperStudio/laravel-taggable
+[link-downloads]: https://packagist.org/packages/DraperStudio/laravel-taggable
+[link-author]: https://github.com/DraperStudio
+[link-contributors]: ../../contributors
